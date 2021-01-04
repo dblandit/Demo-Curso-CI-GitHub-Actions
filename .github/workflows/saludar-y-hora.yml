@@ -1,0 +1,22 @@
+name: Saludar y dar la hora
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  hello_world_job:
+    runs-on: ubuntu-latest
+    name: Job para saludar a una persona
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Saludar a la persona
+        uses: ./.github/actions/hello-person
+        id: hello
+        with:
+          who-to-greet: 'DBlandIT'
+      - name: Obtener el tiempo
+        run: echo "El tiempo es ${{ steps.hello.outputs.time }}"
