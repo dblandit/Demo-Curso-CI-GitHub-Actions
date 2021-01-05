@@ -1,0 +1,25 @@
+name: Backend CI
+
+on:
+  push:
+    branches: [main, dev]
+    paths:
+      - 'backend/**'
+  pull_request:
+    branches: [main, dev]
+    paths-ignore:
+      - 'frontend/**'
+
+jobs:
+  build-backend:
+    runs-on: ubuntu-latest
+
+    container: node:12.18.4
+    services:
+      redis:
+        image: redis:6.0-alpine
+
+    steps:
+      - name: Descargar el código
+        uses: actions/checkout@v2
+      
